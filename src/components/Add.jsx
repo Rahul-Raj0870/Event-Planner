@@ -1,23 +1,20 @@
-import React, { useState } from "react"
-import {  collection, addDoc } from "firebase/firestore" 
-import { db } from '../firebaseConfig'// Import your Firebase config
-import ReactQuill from "react-quill"
+import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from '../firebaseConfig'; // Import your Firebase config
+import ReactQuill from "react-quill";
 
-
-
-function Add() {
-   
-    const [description, setDescription] = useState("")
-    const [title, setTitle] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
+function Add({ onSubmit }) {
+    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Validate inputs
-        if (!title || !imageUrl || !description ) {
-            alert("Please fill in all fields.")
-            return
+        if (!title || !imageUrl || !description) {
+            alert("Please fill in all fields.");
+            return;
         }
 
         try {
@@ -25,29 +22,25 @@ function Add() {
             const eventData = {
                 title,
                 imageUrl,
-                description 
-            }
+                description
+            };
 
             // Save event data to Firestore
             await addDoc(collection(db, "events"), eventData);
             alert("Event added successfully!");
 
             // Reset form
-            setTitle('')
-            setImageUrl('')
-            setDescription('') // Clear the Quill editor
+            setTitle('');
+            setImageUrl('');
+            setDescription(''); // Clear the Quill editor
 
-            
-            
+            // Call the onSubmit prop to notify parent component
+            onSubmit();
         } catch (error) {
-           
             console.error("Error adding event: ", error);
-            alert("Error while Uploading...")
+            alert("Error while Uploading...");
         }
     }
-    
-    
-    
 
     return (
         <>
@@ -73,10 +66,10 @@ function Add() {
                 />
                 <p className="text-start">Event Description</p>
                 <div style={{ width: '500px', height: '200px' }}>
-                <ReactQuill
-                    value={description} // Bind the description to React Quill
-                    onChange={setDescription} // Update the state when content changes
-                    placeholder="Enter the event details here..."
+                    <ReactQuill
+                        value={description} // Bind the description to React Quill
+                        onChange={setDescription} // Update the state when content changes
+                        placeholder="Enter the event details here..."
                     />
                 </div>
                 <div style={{ marginTop: '100px' }} className="d-flex">
@@ -84,7 +77,7 @@ function Add() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Add;

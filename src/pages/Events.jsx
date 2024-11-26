@@ -10,7 +10,7 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState(null); // State to hold the current event being edited
+  const [currentEvent, setCurrentEvent] = useState(null);
 
   const fetchEvents = async () => {
     const eventsCollection = collection(db, 'events');
@@ -23,33 +23,31 @@ const Events = () => {
     fetchEvents();
   }, []);
 
+  const handleDisplayAdd = () => {
+    setShowAdd(prev => !prev);
+    setShowEdit(false); // Hide Edit when showing Add
+  };
 
   const displayEdit = (event) => {
-    setShowEdit(prevShowAdd => !prevShowAdd);
-    setCurrentEvent(event); // Set the current event to edit
-    
+    setCurrentEvent(event);
+    setShowEdit(true); // Show Edit
+    setShowAdd(false); // Hide Add
   };
 
   const handleAddSubmit = () => {
-    
     fetchEvents(); // Refresh the events list after adding a new event
+    setShowAdd(false); // Hide Add component after submission
   };
-
-  const handleDisplayAdd = () => {
-    setShowAdd(prevShowAdd => !prevShowAdd);
-  }
- 
 
   const handleUpdate = async (updatedEvent) => {
     const eventRef = doc(db, 'events', currentEvent.id);
-    try{
-      alert("The Event Details are updated...")
+    try {
       await updateDoc(eventRef, updatedEvent); // Update the event in Firestore
-      setShowEdit(false);
+      alert("The Event Details are updated...");
+      setShowEdit(false); // Hide Edit component after update
       fetchEvents(); // Refresh the events list after editing
-    }catch(err){
+    } catch (err) {
       console.log(err);
-      
     }
   };
 
@@ -92,14 +90,14 @@ const Events = () => {
           ))}
         </div>
 
-        {showAdd &&  (
+        {showAdd && (
           <div style={{ top: '25%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg-light'>
             <Add onSubmit={handleAddSubmit} />
           </div>
         )}
-        { showEdit &&  currentEvent && (
+        {showEdit && currentEvent && (
           <div style={{ top: '30%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg-light'>
-            <Edit event={currentEvent} onUpdate={handleUpdate}  />
+            <Edit event={currentEvent} onUpdate={handleUpdate} onDisplay={() => setShowEdit(false)} />
           </div>
         )}
       </div>
