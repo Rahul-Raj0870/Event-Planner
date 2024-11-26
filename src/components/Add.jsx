@@ -7,6 +7,7 @@ import { db } from '../firebaseConfig'// Import your Firebase config
 
 
 function Add() {
+   
     const { quill, quillRef } = useQuill()
     const [title, setTitle] = useState('')
     const [imageUrl, setImageUrl] = useState('')
