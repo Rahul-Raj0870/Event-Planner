@@ -8,8 +8,8 @@ import Edit from '../components/Edit';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [showAdd, setShowAdd] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
+  // const [showAdd, setShowAdd] = useState(false);
+  // const [showEdit, setShowEdit] = useState(false);
   const [currentEvent, setCurrentEvent] = useState(null); // State to hold the current event being edited
 
   const fetchEvents = async () => {
@@ -23,23 +23,23 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  const addEvents = () => {
-    setShowAdd(true);
-  };
+  // const addEvents = () => {
+  //   setShowAdd(true);
+  // };
 
   const displayEdit = (event) => {
     setCurrentEvent(event); // Set the current event to edit
-    setShowEdit(true);
+    // setShowEdit(true);
   };
 
   const handleAddSubmit = () => {
-    setShowAdd(false);
+    // setShowAdd(false);
     fetchEvents(); // Refresh the events list after adding a new event
   };
 
-  const handleDisplayEdit = () => {
-    setShowEdit(false);
-  };
+  // const handleDisplayEdit = () => {
+  //   setShowEdit(false);
+  // };
 
   const handleUpdate = async (updatedEvent) => {
     const eventRef = doc(db, 'events', currentEvent.id);
@@ -73,7 +73,7 @@ const Events = () => {
       <div style={{ paddingTop: '120px', fontFamily: 'Alegreya', paddingBottom: '100px', marginInline: '80px' }}>
         <div className='d-flex justify-content-between my-4'>
           <h1 style={{ color: '#c804a4' }}>Events</h1>
-          <button onClick={addEvents} style={{ backgroundColor: '#c804a4', fontSize: '1.2rem' }} className='btn text-light'>
+          <button style={{ backgroundColor: '#c804a4', fontSize: '1.2rem' }} className='btn text-light'>
             Add New Event
           </button>
         </div>
@@ -93,14 +93,14 @@ const Events = () => {
           ))}
         </div>
 
-        {showAdd && (
-          <div style={{ top: '25%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg -light'>
+        {  (
+          <div style={{ top: '25%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg-light'>
             <Add onSubmit={handleAddSubmit} />
           </div>
         )}
-        {showEdit && currentEvent && (
+        {  currentEvent && (
           <div style={{ top: '30%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg-light'>
-            <Edit event={currentEvent} onUpdate={handleUpdate} onDisplay={handleDisplayEdit} />
+            <Edit event={currentEvent} onUpdate={handleUpdate}  />
           </div>
         )}
       </div>

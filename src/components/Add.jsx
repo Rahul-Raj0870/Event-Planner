@@ -6,7 +6,7 @@ import { db } from '../firebaseConfig'// Import your Firebase config
 
 
 
-function Add({ onSubmit }) {
+function Add() {
     const { quill, quillRef } = useQuill()
     const [title, setTitle] = useState('')
     const [imageUrl, setImageUrl] = useState('')
@@ -33,12 +33,12 @@ function Add({ onSubmit }) {
             alert("Event added successfully!");
 
             // Reset form
-            setTitle('');
-            setImageUrl('');
-            quill.setText(''); // Clear the Quill editor
+            setTitle('')
+            setImageUrl('')
+            quill.setText('') // Clear the Quill editor
 
             // Call onSubmit callback if needed
-            onSubmit();
+            
         } catch (error) {
            
             console.error("Error adding event: ", error);
@@ -81,7 +81,7 @@ function Add({ onSubmit }) {
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 export default Add;
