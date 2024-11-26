@@ -15,7 +15,7 @@ function Add({ onSubmit }) {
         event.preventDefault();
 
         // Validate inputs
-        if (!title || !imageUrl || !quill) {
+        if (!title || !imageUrl || !quill.root.innerHTML) {
             alert("Please fill in all fields.");
             return;
         }

@@ -7,12 +7,14 @@ const Edit = ({ event, onUpdate, onDisplay }) => {
   const [title, setTitle] = useState(event.title);
   const [imageUrl, setImageUrl] = useState(event.imageUrl);
   
-
+  if (!event) {
+    return null;
+}
   useEffect(() => {
     setTitle(event.title);
     setImageUrl(event.imageUrl);
     
-    if (quill) {
+    if (event && quill) {
       
       // Convert HTML to plain text and set it to state
       const plainText = htmlToPlainText(event.description);
