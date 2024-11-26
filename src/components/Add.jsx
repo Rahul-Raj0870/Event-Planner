@@ -46,8 +46,7 @@ function Add() {
             alert("Error while Uploading...")
         }
     }
-    // console.log("quill content");
-    // console.log(quillRef.current.innerHTML);
+    
     
     
 
