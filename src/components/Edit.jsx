@@ -69,7 +69,7 @@ const Edit = ({ event, onUpdate, onDisplay }) => {
         />
         <p className="text-start">Event Description</p>
         <div style={{ width: '500px', height: '200px' }}>
-          <div ref={quillRef} />
+          {/* <div ref={quillRef} /> */}
         </div>
         <div style={{ marginTop: '100px' }} className="d-flex">
           <button onClick={handleSubmit} className="btn btn-success text-light fw-bolder">Update</button>
