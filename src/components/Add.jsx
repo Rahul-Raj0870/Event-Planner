@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { useQuill } from 'react-quilljs';
-import 'quill/dist/quill.snow.css';
-import {  collection, addDoc } from "firebase/firestore"; 
-import { db } from '../firebaseConfig';// Import your Firebase config
+import React, { useState } from "react"
+import { useQuill } from 'react-quilljs'
+import 'quill/dist/quill.snow.css'
+import {  collection, addDoc } from "firebase/firestore" 
+import { db } from '../firebaseConfig'// Import your Firebase config
 
 
 
 function Add({ onSubmit }) {
-    const { quill, quillRef } = useQuill();
-    const [title, setTitle] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const { quill, quillRef } = useQuill()
+    const [title, setTitle] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
         // Validate inputs
         if (!title || !imageUrl || !quill.root.innerHTML) {
-            alert("Please fill in all fields.");
-            return;
+            alert("Please fill in all fields.")
+            return
         }
 
         try {
@@ -25,8 +25,8 @@ function Add({ onSubmit }) {
             const eventData = {
                 title,
                 imageUrl,
-                description: quill.root.innerHTML, // Get the HTML content from Quill
-            };
+                description: quill.root.innerHTML // Get the HTML content from Quill
+            }
 
             // Save event data to Firestore
             await addDoc(collection(db, "events"), eventData);
