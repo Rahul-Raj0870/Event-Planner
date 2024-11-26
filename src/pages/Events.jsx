@@ -97,11 +97,11 @@ const Events = () => {
             <Add onSubmit={handleAddSubmit} />
           </div>
         )}
-        {/* { showEdit &&  currentEvent && (
+        { showEdit &&  currentEvent && (
           <div style={{ top: '30%', left: '50%', transform: 'translate(-50%)' }} className='position-absolute rounded text-center p-3 border border-dark bg-light'>
             <Edit event={currentEvent} onUpdate={handleUpdate}  />
           </div>
-        )} */}
+        )}
       </div>
       <Footer />
     </>

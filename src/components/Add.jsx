@@ -1,14 +1,13 @@
 import React, { useState } from "react"
-import { useQuill } from 'react-quilljs'
-import 'quill/dist/quill.snow.css'
 import {  collection, addDoc } from "firebase/firestore" 
 import { db } from '../firebaseConfig'// Import your Firebase config
+import ReactQuill from "react-quill"
 
 
 
 function Add() {
    
-    const { quill, quillRef } = useQuill()
+    const [description, setDescription] = useState("")
     const [title, setTitle] = useState('')
     const [imageUrl, setImageUrl] = useState('')
 
@@ -16,7 +15,7 @@ function Add() {
         event.preventDefault()
 
         // Validate inputs
-        if (!title || !imageUrl ) {
+        if (!title || !imageUrl || !description ) {
             alert("Please fill in all fields.")
             return
         }
@@ -26,7 +25,7 @@ function Add() {
             const eventData = {
                 title,
                 imageUrl,
-                description: quill.root.innerHTML // Get the HTML content from Quill
+                description 
             }
 
             // Save event data to Firestore
@@ -36,9 +35,9 @@ function Add() {
             // Reset form
             setTitle('')
             setImageUrl('')
-            quill.setText('') // Clear the Quill editor
+            setDescription('') // Clear the Quill editor
 
-            // Call onSubmit callback if needed
+            
             
         } catch (error) {
            
@@ -74,7 +73,11 @@ function Add() {
                 />
                 <p className="text-start">Event Description</p>
                 <div style={{ width: '500px', height: '200px' }}>
-                    {/* <div ref={quillRef} /> */}
+                <ReactQuill
+                    value={description} // Bind the description to React Quill
+                    onChange={setDescription} // Update the state when content changes
+                    placeholder="Enter the event details here..."
+                    />
                 </div>
                 <div style={{ marginTop: '100px' }} className="d-flex">
                     <button onClick={handleSubmit} className="btn btn-success">Submit</button>

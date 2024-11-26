@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useQuill } from 'react-quilljs';
+
 import 'quill/dist/quill.snow.css';
+import ReactQuill from "react-quill";
 
 const Edit = ({ event, onUpdate, onDisplay }) => {
-  const { quill, quillRef } = useQuill();
+
+  const [description, setDescription] = useState("")
   const [title, setTitle] = useState(event.title);
   const [imageUrl, setImageUrl] = useState(event.imageUrl);
   
@@ -13,18 +15,18 @@ const Edit = ({ event, onUpdate, onDisplay }) => {
   useEffect(() => {
     setTitle(event.title);
     setImageUrl(event.imageUrl);
-    
-    if (event && quill) {
+    setDescription(event.description)
+    if (event ) {
       
       // Convert HTML to plain text and set it to state
       const plainText = htmlToPlainText(event.description);
       
       console.log(plainText);
-      quill.setText(plainText)
+      
       
     }
     
-  }, [event, quill]);
+  }, [event]);
 
   // Utility function to convert HTML to plain text
   const htmlToPlainText = (html) => {
@@ -39,8 +41,7 @@ const Edit = ({ event, onUpdate, onDisplay }) => {
     const updatedEvent = {
       title,
       imageUrl,
-      
-      description: quill.root.innerHTML.trim(), // Get the HTML content from Quill
+      description // Get the HTML content from Quill
     }
     onUpdate(updatedEvent); // Pass the updated event back to the parent
   }
@@ -69,7 +70,11 @@ const Edit = ({ event, onUpdate, onDisplay }) => {
         />
         <p className="text-start">Event Description</p>
         <div style={{ width: '500px', height: '200px' }}>
-          {/* <div ref={quillRef} /> */}
+        <ReactQuill
+                    value={description} // Bind the description to React Quill
+                    onChange={setDescription} // Update the state when content changes
+                    placeholder="Enter the event details here..."
+        />
         </div>
         <div style={{ marginTop: '100px' }} className="d-flex">
           <button onClick={handleSubmit} className="btn btn-success text-light fw-bolder">Update</button>
