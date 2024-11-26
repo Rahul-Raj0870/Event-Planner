@@ -16,7 +16,7 @@ function Add() {
         event.preventDefault()
 
         // Validate inputs
-        if (!title || !imageUrl || !quill.root.innerHTML) {
+        if (!title || !imageUrl ) {
             alert("Please fill in all fields.")
             return
         }
@@ -74,7 +74,7 @@ function Add() {
                 />
                 <p className="text-start">Event Description</p>
                 <div style={{ width: '500px', height: '200px' }}>
-                    <div ref={quillRef} />
+                    {/* <div ref={quillRef} /> */}
                 </div>
                 <div style={{ marginTop: '100px' }} className="d-flex">
                     <button onClick={handleSubmit} className="btn btn-success">Submit</button>
