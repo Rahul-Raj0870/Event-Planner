@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import 'quill/dist/quill.snow.css';
 import ReactQuill from "react-quill";
-
+import 'react-quill/dist/quill.snow.css';
 const Edit = ({ event, onUpdate, onDisplay }) => {
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState(event.title);

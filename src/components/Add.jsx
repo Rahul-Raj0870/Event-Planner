@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore"; 
 import { db } from '../firebaseConfig'; // Import your Firebase config
 import ReactQuill from "react-quill";
-
+import 'react-quill/dist/quill.snow.css';
 function Add({ onSubmit }) {
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState('');

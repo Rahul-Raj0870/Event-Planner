@@ -10,12 +10,11 @@ const firebaseConfig = {
     messagingSenderId: "721593867691",
     appId: "1:721593867691:web:bd85c9db11be5f904a86ee",
     measurementId: "G-J2TL1XT617" // This is optional if you are not using Google Analytics
-};
+}
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 // Export Firestore
 export const db = getFirestore(app);
 
-// export { app, db }; // Only exporting app and db
